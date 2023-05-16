@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ichirakuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Блюда">
+    <Key>
+      <PropertyRef Name="ИдБлюда" />
+    </Key>
+    <Property Name="ИдБлюда" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Название" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Описание" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Стоимость" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="ИдГруппы" Type="Int32" />
+    <NavigationProperty Name="Группа" Relationship="Self.FK__Блюда__ИдГруппы__2A4B4B5E" FromRole="Блюда" ToRole="Группа" />
+    <NavigationProperty Name="Заказ" Relationship="Self.FK__Заказ__ИдБлюда__2B3F6F97" FromRole="Блюда" ToRole="Заказ" />
+  </EntityType>
+  <EntityType Name="Группа">
+    <Key>
+      <PropertyRef Name="ИдГруппы" />
+    </Key>
+    <Property Name="ИдГруппы" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="НаименованиеГруппы" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Блюда" Relationship="Self.FK__Блюда__ИдГруппы__2A4B4B5E" FromRole="Группа" ToRole="Блюда" />
+  </EntityType>
+  <EntityType Name="Заказ">
+    <Key>
+      <PropertyRef Name="ИдЗаказа" />
+    </Key>
+    <Property Name="ИдЗаказа" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ИдБлюда" Type="Int32" />
+    <Property Name="ИдОфицианта" Type="Int32" />
+    <Property Name="КоличествоБлюд" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Блюда" Relationship="Self.FK__Заказ__ИдБлюда__2B3F6F97" FromRole="Заказ" ToRole="Блюда" />
+    <NavigationProperty Name="Кассиры" Relationship="Self.FK__Заказ__ИдОфициан__0EA330E9" FromRole="Заказ" ToRole="Кассиры" />
+  </EntityType>
+  <EntityType Name="Кассиры">
+    <Key>
+      <PropertyRef Name="ИдОфицианта" />
+    </Key>
+    <Property Name="ИдОфицианта" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Имя" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Фамилия" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Логин" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Пароль" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Заказ" Relationship="Self.FK__Заказ__ИдОфициан__0EA330E9" FromRole="Кассиры" ToRole="Заказ" />
+  </EntityType>
+  <Association Name="FK__Блюда__ИдГруппы__2A4B4B5E">
+    <End Role="Группа" Type="Self.Группа" Multiplicity="0..1" />
+    <End Role="Блюда" Type="Self.Блюда" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Группа">
+        <PropertyRef Name="ИдГруппы" />
+      </Principal>
+      <Dependent Role="Блюда">
+        <PropertyRef Name="ИдГруппы" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Заказ__ИдБлюда__2B3F6F97">
+    <End Role="Блюда" Type="Self.Блюда" Multiplicity="0..1" />
+    <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Блюда">
+        <PropertyRef Name="ИдБлюда" />
+      </Principal>
+      <Dependent Role="Заказ">
+        <PropertyRef Name="ИдБлюда" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Заказ__ИдОфициан__0EA330E9">
+    <End Role="Кассиры" Type="Self.Кассиры" Multiplicity="0..1" />
+    <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Кассиры">
+        <PropertyRef Name="ИдОфицианта" />
+      </Principal>
+      <Dependent Role="Заказ">
+        <PropertyRef Name="ИдОфицианта" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ichirakuEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Блюда" EntityType="Self.Блюда" />
+    <EntitySet Name="Группа" EntityType="Self.Группа" />
+    <EntitySet Name="Заказ" EntityType="Self.Заказ" />
+    <EntitySet Name="Кассиры" EntityType="Self.Кассиры" />
+    <AssociationSet Name="FK__Блюда__ИдГруппы__2A4B4B5E" Association="Self.FK__Блюда__ИдГруппы__2A4B4B5E">
+      <End Role="Группа" EntitySet="Группа" />
+      <End Role="Блюда" EntitySet="Блюда" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Заказ__ИдБлюда__2B3F6F97" Association="Self.FK__Заказ__ИдБлюда__2B3F6F97">
+      <End Role="Блюда" EntitySet="Блюда" />
+      <End Role="Заказ" EntitySet="Заказ" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Заказ__ИдОфициан__0EA330E9" Association="Self.FK__Заказ__ИдОфициан__0EA330E9">
+      <End Role="Кассиры" EntitySet="Кассиры" />
+      <End Role="Заказ" EntitySet="Заказ" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ichirakuModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ichirakuModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

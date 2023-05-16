@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище ichirakuModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Блюда">
+    <Key>
+      <PropertyRef Name="ИдБлюда" />
+    </Key>
+    <Property Name="ИдБлюда" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Название" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Описание" Type="varchar(max)" Nullable="false" />
+    <Property Name="Стоимость" Type="money" Nullable="false" />
+    <Property Name="ИдГруппы" Type="int" />
+  </EntityType>
+  <EntityType Name="Группа">
+    <Key>
+      <PropertyRef Name="ИдГруппы" />
+    </Key>
+    <Property Name="ИдГруппы" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="НаименованиеГруппы" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Заказ">
+    <Key>
+      <PropertyRef Name="ИдЗаказа" />
+    </Key>
+    <Property Name="ИдЗаказа" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ИдБлюда" Type="int" />
+    <Property Name="ИдОфицианта" Type="int" />
+    <Property Name="КоличествоБлюд" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Кассиры">
+    <Key>
+      <PropertyRef Name="ИдОфицианта" />
+    </Key>
+    <Property Name="ИдОфицианта" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Имя" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Фамилия" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Логин" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Пароль" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Блюда__ИдГруппы__2A4B4B5E">
+    <End Role="Группа" Type="Self.Группа" Multiplicity="0..1" />
+    <End Role="Блюда" Type="Self.Блюда" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Группа">
+        <PropertyRef Name="ИдГруппы" />
+      </Principal>
+      <Dependent Role="Блюда">
+        <PropertyRef Name="ИдГруппы" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Заказ__ИдБлюда__2B3F6F97">
+    <End Role="Блюда" Type="Self.Блюда" Multiplicity="0..1" />
+    <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Блюда">
+        <PropertyRef Name="ИдБлюда" />
+      </Principal>
+      <Dependent Role="Заказ">
+        <PropertyRef Name="ИдБлюда" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Заказ__ИдОфициан__0EA330E9">
+    <End Role="Кассиры" Type="Self.Кассиры" Multiplicity="0..1" />
+    <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Кассиры">
+        <PropertyRef Name="ИдОфицианта" />
+      </Principal>
+      <Dependent Role="Заказ">
+        <PropertyRef Name="ИдОфицианта" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="Хранилище ichirakuModelContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Блюда" EntityType="Self.Блюда" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Группа" EntityType="Self.Группа" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Заказ" EntityType="Self.Заказ" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Кассиры" EntityType="Self.Кассиры" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Блюда__ИдГруппы__2A4B4B5E" Association="Self.FK__Блюда__ИдГруппы__2A4B4B5E">
+      <End Role="Группа" EntitySet="Группа" />
+      <End Role="Блюда" EntitySet="Блюда" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Заказ__ИдБлюда__2B3F6F97" Association="Self.FK__Заказ__ИдБлюда__2B3F6F97">
+      <End Role="Блюда" EntitySet="Блюда" />
+      <End Role="Заказ" EntitySet="Заказ" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Заказ__ИдОфициан__0EA330E9" Association="Self.FK__Заказ__ИдОфициан__0EA330E9">
+      <End Role="Кассиры" EntitySet="Кассиры" />
+      <End Role="Заказ" EntitySet="Заказ" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

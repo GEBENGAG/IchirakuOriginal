@@ -1,0 +1,20 @@
+﻿<Window x:Class="ichiraku.AuthWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ichiraku"
+        mc:Ignorable="d"
+        Title="Окно Авторизации" Height="350" Width="400" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Background="#202130" Foreground="WhiteSmoke">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="200"  >
+            <TextBlock Text="Логин:" ></TextBlock >
+            <TextBox  Margin="0,0,0,10" x:Name="TbLogin"></TextBox>
+            <TextBlock Text="Пароль:"></TextBlock>
+            <PasswordBox  x:Name="TbPass"></PasswordBox>
+        </StackPanel>
+        <Button x:Name="btnLogin" Content="Войти" Width="150" FontSize="14" Height="30" Background="Black" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,50" Click="btnLogin_Click"></Button>
+    </Grid>
+
+
+</Window>

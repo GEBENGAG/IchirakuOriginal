@@ -1,0 +1,97 @@
+﻿<Window x:Class="ichiraku.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ichiraku"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Background="Transparent"  WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
+    <Border Background="#202130"  CornerRadius="10" MouseDown="Border_MouseDown">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="329*"></RowDefinition>
+                <RowDefinition Height="90*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="295*"></ColumnDefinition>
+                <ColumnDefinition Width="245*"></ColumnDefinition>
+                <ColumnDefinition Width="246*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <DataGrid x:Name="tablicaZakaz" RowHeight="40" GridLinesVisibility="Horizontal" Margin="5 5" HorizontalAlignment="Left" Width="294" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Количество" Width="80" Binding="{Binding count}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Наименование" Width="100" Binding="{Binding dishName}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Цена" Width="60" Binding="{Binding cost}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Сумма" Width="80" Binding="{Binding sum}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center" Width="300" Grid.ColumnSpan="2" Margin="50,0,100,0"  >
+                <Label Content="Meню" Foreground="WhiteSmoke" FontSize="28" HorizontalAlignment="Center"></Label>
+                <ComboBox Name="kategorii" Width="150" DisplayMemberPath="НаименованиеГруппы" SelectionChanged="kategorii_SelectionChanged" ></ComboBox>
+                <DataGrid x:Name="tablicaMenu" RowHeight="30" GridLinesVisibility="Horizontal" Height="175" Width="300" CanUserAddRows="False" CanUserReorderColumns="False" CanUserDeleteRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Название" Width="*" Binding="{Binding Название}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Цена" Width="*" Binding="{Binding Стоимость}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+            <Button x:Name="add" Content="Добавить" Grid.Row="1" HorizontalAlignment="Right" Grid.Column="1" Width="150" Click="add_Click" Margin="0,27,32,27" />
+            <Button x:Name="next" Click="next_Click" Content="Далее" Grid.Row="1" HorizontalAlignment="Right" Grid.Column="2" Width="150" Margin="0,27,32,27" />
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="62,0,71,0" Width="162">
+                <Button x:Name="plus" Content="+" FontSize="34" Click="plus_Click" Width="36" ></Button >
+                <Button x:Name="minus" Content="-" Click="minus_Click" Width="25" ></Button>
+                <Button x:Name="number" Content="123" FontSize="26" Click="number_Click" ></Button>
+                <Button x:Name="delete" 
+                    Content="x" 
+                    Grid.Row="1" 
+                    HorizontalAlignment="Right" 
+                    Grid.Column="1" 
+                    Width="31" 
+                    Height="40" 
+                    Background="Transparent" 
+                    Foreground="White" 
+                    FontSize="28" 
+                    Click="delete_Click" Margin="5,27" ></Button>
+            </StackPanel>
+            <StackPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Width="40">
+                <Button Height="25" Width="25" Click="Button_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="Bd" Background="Transparent">
+                                <Path x:Name="Pt" Data="M0,0 M0.2,0.2 L 0.8,0.8 M0.2,0.8 L0.8,0.2 M1,1"
+                      Stretch="Uniform" Stroke="White" StrokeThickness="2"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Bd" Property="Background" Value="Red"/>
+                                    <Setter TargetName="Pt" Property="Stroke" Value="White"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Content="—" x:Name="btnMinimized" Foreground="White" Click="Button_Click_1" ></Button>
+                <!--<Button  x:Name="settings">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="settingicon.png" Width="30" Height="30" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>-->
+            </StackPanel>
+
+            <!--<Border x:Name="kover" Grid.ColumnSpan="3" Grid.RowSpan="2" Opacity="0" Background="Black" Visibility="Hidden" ></Border>-->
+
+
+            <StackPanel Grid.Column="2" Margin="135,151,0, 0" VerticalAlignment="Top">
+                <StackPanel Orientation="Horizontal">
+                    <Label Foreground="White" Content="Connect" FontSize="16"/>
+                    <Image x:Name="imageNet" Height = "20" Width = "20"/>
+                </StackPanel>
+                <TextBlock x:Name="txtbNameKassir" Margin="5 0 0 0" Text="Кассир" Foreground="WhiteSmoke" FontSize="16"></TextBlock>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

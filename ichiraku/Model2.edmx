@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ichirakuModel1" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Блюда">
+          <Key>
+            <PropertyRef Name="ИдБлюда" />
+          </Key>
+          <Property Name="ИдБлюда" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Название" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Описание" Type="varchar(max)" Nullable="false" />
+          <Property Name="Стоимость" Type="money" Nullable="false" />
+          <Property Name="ИдГруппы" Type="int" />
+        </EntityType>
+        <EntityType Name="Группа">
+          <Key>
+            <PropertyRef Name="ИдГруппы" />
+          </Key>
+          <Property Name="ИдГруппы" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="НаименованиеГруппы" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Заказ">
+          <Key>
+            <PropertyRef Name="ИдЗаказа" />
+          </Key>
+          <Property Name="ИдЗаказа" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ИдБлюда" Type="int" />
+          <Property Name="ИдОфицианта" Type="int" />
+          <Property Name="КоличествоБлюд" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Кассиры">
+          <Key>
+            <PropertyRef Name="ИдОфицианта" />
+          </Key>
+          <Property Name="ИдОфицианта" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Имя" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Фамилия" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Логин" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Пароль" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Блюда__ИдГруппы__2A4B4B5E">
+          <End Role="Группа" Type="Self.Группа" Multiplicity="0..1" />
+          <End Role="Блюда" Type="Self.Блюда" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Группа">
+              <PropertyRef Name="ИдГруппы" />
+            </Principal>
+            <Dependent Role="Блюда">
+              <PropertyRef Name="ИдГруппы" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Заказ__ИдБлюда__2B3F6F97">
+          <End Role="Блюда" Type="Self.Блюда" Multiplicity="0..1" />
+          <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Блюда">
+              <PropertyRef Name="ИдБлюда" />
+            </Principal>
+            <Dependent Role="Заказ">
+              <PropertyRef Name="ИдБлюда" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Заказ__ИдОфициан__0EA330E9">
+          <End Role="Кассиры" Type="Self.Кассиры" Multiplicity="0..1" />
+          <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Кассиры">
+              <PropertyRef Name="ИдОфицианта" />
+            </Principal>
+            <Dependent Role="Заказ">
+              <PropertyRef Name="ИдОфицианта" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <EntityContainer Name="Хранилище ichirakuModel1Container">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Блюда" EntityType="Self.Блюда" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Группа" EntityType="Self.Группа" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Заказ" EntityType="Self.Заказ" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Кассиры" EntityType="Self.Кассиры" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Блюда__ИдГруппы__2A4B4B5E" Association="Self.FK__Блюда__ИдГруппы__2A4B4B5E">
+            <End Role="Группа" EntitySet="Группа" />
+            <End Role="Блюда" EntitySet="Блюда" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Заказ__ИдБлюда__2B3F6F97" Association="Self.FK__Заказ__ИдБлюда__2B3F6F97">
+            <End Role="Блюда" EntitySet="Блюда" />
+            <End Role="Заказ" EntitySet="Заказ" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Заказ__ИдОфициан__0EA330E9" Association="Self.FK__Заказ__ИдОфициан__0EA330E9">
+            <End Role="Кассиры" EntitySet="Кассиры" />
+            <End Role="Заказ" EntitySet="Заказ" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ichirakuModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Блюда">
+          <Key>
+            <PropertyRef Name="ИдБлюда" />
+          </Key>
+          <Property Name="ИдБлюда" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Описание" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Стоимость" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ИдГруппы" Type="Int32" />
+          <NavigationProperty Name="Группа" Relationship="Self.FK__Блюда__ИдГруппы__2A4B4B5E" FromRole="Блюда" ToRole="Группа" />
+          <NavigationProperty Name="Заказ" Relationship="Self.FK__Заказ__ИдБлюда__2B3F6F97" FromRole="Блюда" ToRole="Заказ" />
+        </EntityType>
+        <EntityType Name="Группа">
+          <Key>
+            <PropertyRef Name="ИдГруппы" />
+          </Key>
+          <Property Name="ИдГруппы" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="НаименованиеГруппы" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Блюда" Relationship="Self.FK__Блюда__ИдГруппы__2A4B4B5E" FromRole="Группа" ToRole="Блюда" />
+        </EntityType>
+        <EntityType Name="Заказ">
+          <Key>
+            <PropertyRef Name="ИдЗаказа" />
+          </Key>
+          <Property Name="ИдЗаказа" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ИдБлюда" Type="Int32" />
+          <Property Name="ИдОфицианта" Type="Int32" />
+          <Property Name="КоличествоБлюд" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Блюда" Relationship="Self.FK__Заказ__ИдБлюда__2B3F6F97" FromRole="Заказ" ToRole="Блюда" />
+          <NavigationProperty Name="Кассиры" Relationship="Self.FK__Заказ__ИдОфициан__0EA330E9" FromRole="Заказ" ToRole="Кассиры" />
+        </EntityType>
+        <EntityType Name="Кассиры">
+          <Key>
+            <PropertyRef Name="ИдОфицианта" />
+          </Key>
+          <Property Name="ИдОфицианта" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Имя" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Фамилия" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Логин" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Пароль" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Заказ" Relationship="Self.FK__Заказ__ИдОфициан__0EA330E9" FromRole="Кассиры" ToRole="Заказ" />
+        </EntityType>
+        <Association Name="FK__Блюда__ИдГруппы__2A4B4B5E">
+          <End Role="Группа" Type="Self.Группа" Multiplicity="0..1" />
+          <End Role="Блюда" Type="Self.Блюда" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Группа">
+              <PropertyRef Name="ИдГруппы" />
+            </Principal>
+            <Dependent Role="Блюда">
+              <PropertyRef Name="ИдГруппы" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Заказ__ИдБлюда__2B3F6F97">
+          <End Role="Блюда" Type="Self.Блюда" Multiplicity="0..1" />
+          <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Блюда">
+              <PropertyRef Name="ИдБлюда" />
+            </Principal>
+            <Dependent Role="Заказ">
+              <PropertyRef Name="ИдБлюда" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Заказ__ИдОфициан__0EA330E9">
+          <End Role="Кассиры" Type="Self.Кассиры" Multiplicity="0..1" />
+          <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Кассиры">
+              <PropertyRef Name="ИдОфицианта" />
+            </Principal>
+            <Dependent Role="Заказ">
+              <PropertyRef Name="ИдОфицианта" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ichirakuEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Блюда" EntityType="Self.Блюда" />
+          <EntitySet Name="Группа" EntityType="Self.Группа" />
+          <EntitySet Name="Заказ" EntityType="Self.Заказ" />
+          <EntitySet Name="Кассиры" EntityType="Self.Кассиры" />
+          <AssociationSet Name="FK__Блюда__ИдГруппы__2A4B4B5E" Association="Self.FK__Блюда__ИдГруппы__2A4B4B5E">
+            <End Role="Группа" EntitySet="Группа" />
+            <End Role="Блюда" EntitySet="Блюда" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Заказ__ИдБлюда__2B3F6F97" Association="Self.FK__Заказ__ИдБлюда__2B3F6F97">
+            <End Role="Блюда" EntitySet="Блюда" />
+            <End Role="Заказ" EntitySet="Заказ" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Заказ__ИдОфициан__0EA330E9" Association="Self.FK__Заказ__ИдОфициан__0EA330E9">
+            <End Role="Кассиры" EntitySet="Кассиры" />
+            <End Role="Заказ" EntitySet="Заказ" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ichirakuModel1Container" CdmEntityContainer="ichirakuEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ichirakuModel1.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Блюда">
+            <EntityTypeMapping TypeName="ichirakuModel1.Блюда">
+              <MappingFragment StoreEntitySet="Блюда">
+                <ScalarProperty Name="ИдБлюда" ColumnName="ИдБлюда" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Описание" ColumnName="Описание" />
+                <ScalarProperty Name="Стоимость" ColumnName="Стоимость" />
+                <ScalarProperty Name="ИдГруппы" ColumnName="ИдГруппы" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Группа">
+            <EntityTypeMapping TypeName="ichirakuModel1.Группа">
+              <MappingFragment StoreEntitySet="Группа">
+                <ScalarProperty Name="ИдГруппы" ColumnName="ИдГруппы" />
+                <ScalarProperty Name="НаименованиеГруппы" ColumnName="НаименованиеГруппы" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Заказ">
+            <EntityTypeMapping TypeName="ichirakuModel1.Заказ">
+              <MappingFragment StoreEntitySet="Заказ">
+                <ScalarProperty Name="ИдЗаказа" ColumnName="ИдЗаказа" />
+                <ScalarProperty Name="ИдБлюда" ColumnName="ИдБлюда" />
+                <ScalarProperty Name="ИдОфицианта" ColumnName="ИдОфицианта" />
+                <ScalarProperty Name="КоличествоБлюд" ColumnName="КоличествоБлюд" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Кассиры">
+            <EntityTypeMapping TypeName="ichirakuModel1.Кассиры">
+              <MappingFragment StoreEntitySet="Кассиры">
+                <ScalarProperty Name="ИдОфицианта" ColumnName="ИдОфицианта" />
+                <ScalarProperty Name="Имя" ColumnName="Имя" />
+                <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+                <ScalarProperty Name="Логин" ColumnName="Логин" />
+                <ScalarProperty Name="Пароль" ColumnName="Пароль" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,1 @@
+data source=DESKTOP-GEO\SQLEXPRESS;initial catalog=ichiraku;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework
