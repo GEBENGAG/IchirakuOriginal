@@ -12,19 +12,21 @@ namespace ichiraku
     using System;
     using System.Collections.Generic;
     
-    public partial class Кассиры
+    public partial class Сотрудники
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Кассиры()
+        public Сотрудники()
         {
             this.Заказ = new HashSet<Заказ>();
         }
     
-        public int ИдОфицианта { get; set; }
-        public string Имя { get; set; }
+        public int ИдСотрудника { get; set; }
         public string Фамилия { get; set; }
-        public string Логин { get; set; }
-        public string Пароль { get; set; }
+        public string Имя { get; set; }
+        public string НомерТелефона { get; set; }
+        public System.DateTime ДатаРождения { get; set; }
+        public string Должность { get; set; }
+        public int Пароль { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Заказ> Заказ { get; set; }

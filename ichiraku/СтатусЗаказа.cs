@@ -10,10 +10,20 @@
 namespace ichiraku
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_helpdiagramdefinition_Result
+    public partial class СтатусЗаказа
     {
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public СтатусЗаказа()
+        {
+            this.Заказ = new HashSet<Заказ>();
+        }
+    
+        public int ИдСтатусаЗаказа { get; set; }
+        public string Название { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Заказ> Заказ { get; set; }
     }
 }

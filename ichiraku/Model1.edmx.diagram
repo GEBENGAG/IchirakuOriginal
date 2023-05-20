@@ -4,15 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d21286cfd7c54f1bad29f0ae7d2888fa" Name="Diagram1">
-        <EntityTypeShape EntityType="ichirakuModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ichirakuModel.Блюда" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ichirakuModel.Группа" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+      <Diagram DiagramId="390d94a07f6f4aadb2c630c894b3609e" Name="Diagram1">
+        <EntityTypeShape EntityType="ichirakuModel.Блюда" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ichirakuModel.Заказ" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ichirakuModel.Кассиры" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
-        <AssociationConnector Association="ichirakuModel.FK__Блюда__ИдГруппы__2A4B4B5E" ManuallyRouted="false" />
-        <AssociationConnector Association="ichirakuModel.FK__Заказ__ИдБлюда__2B3F6F97" ManuallyRouted="false" />
-        <AssociationConnector Association="ichirakuModel.FK__Заказ__ИдОфициан__0EA330E9" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ichirakuModel.Категории" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ichirakuModel.СоставБлюда" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ichirakuModel.Сотрудники" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="ichirakuModel.СтатусЗаказа" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ichirakuModel.ТипОплаты" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ichirakuModel.Чек" Width="1.5" PointX="7.5" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="ichirakuModel.FK_Блюда_Категории" ManuallyRouted="false" />
+        <AssociationConnector Association="ichirakuModel.FK_Блюда_СоставБлюда" ManuallyRouted="false" />
+        <AssociationConnector Association="ichirakuModel.FK_Заказ_Блюда" ManuallyRouted="false" />
+        <AssociationConnector Association="ichirakuModel.FK_Заказ_Сотрудники" ManuallyRouted="false" />
+        <AssociationConnector Association="ichirakuModel.FK_Заказ_СтатусЗаказа" ManuallyRouted="false" />
+        <AssociationConnector Association="ichirakuModel.FK_Чек_Заказ" ManuallyRouted="false" />
+        <AssociationConnector Association="ichirakuModel.FK_Чек_ТипОплаты" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

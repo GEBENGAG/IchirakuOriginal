@@ -23,14 +23,14 @@ namespace ichiraku
     /// </summary>
     public partial class MainWindow : Window
     {
-        ichirakuEntities2 ichiraku;
+        ichirakuEntities ichiraku;
 
         public MainWindow()
         {
             InitializeComponent();
-            ichiraku = new ichirakuEntities2();
+            ichiraku = new ichirakuEntities();
             txtbNameKassir.Text = $"Кассир:{Environment.NewLine}{Class1.kassirName}";
-            kategorii.ItemsSource = ichiraku.Группа.ToList();
+            kategorii.ItemsSource = ichiraku.Категории.ToList();
             infoNet();
             Class1.tablicaZakaz = tablicaZakaz;
             tablicaZakaz.ItemsSource = Class1.kassa.ToList();
@@ -45,9 +45,9 @@ namespace ichiraku
             Class1.DataBaseInitialize();
             Class1.cn1.Open();
             SqlCommand cmd = new SqlCommand("Command String", Class1.cn1);
-            cmd.CommandText = $"select ИдГруппы from Группа where НаименованиеГруппы = '{((ichiraku.Группа)kategorii.SelectedItem).НаименованиеГруппы }'";
+            cmd.CommandText = $"select ИдГруппы from Группа where НаименованиеГруппы = '{((ichiraku.Категории)kategorii.SelectedItem).НазваниеКатегории }'";
             object resolt = cmd.ExecuteScalar();
-            tablicaMenu.ItemsSource = Class1.context.Блюда.Where(k => k.ИдГруппы.ToString().Contains(resolt.ToString())).ToList();
+            tablicaMenu.ItemsSource = Class1.context.Блюда.Where(k => k.ИдКатегории.ToString().Contains(resolt.ToString())).ToList();
 
 
             

@@ -24,7 +24,7 @@ namespace ichiraku
         
         
 
-        SqlConnection cn1 = new SqlConnection(@"data source=DESKTOP-GEO\SQLEXPRESS;initial catalog=ichiraku;integrated security=True");
+        SqlConnection cn1 = new SqlConnection(@"data source=DESKTOP-LUU6HL9;initial catalog=ichiraku;integrated security=True");
 
         public AuthWindow()
         {
@@ -35,16 +35,16 @@ namespace ichiraku
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             bool success = false;
-            SqlConnection cn1 = new SqlConnection(@"data source=DESKTOP-GEO\SQLEXPRESS;initial catalog=ichiraku;integrated security=True");
+            SqlConnection cn1 = new SqlConnection(@"data source=DESKTOP-LUU6HL9;initial catalog=ichiraku;integrated security=True");
             cn1.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = cn1;
-            cmd.CommandText = @"Select * from Кассиры where Логин =  '"+ TbLogin.Text + "' and Пароль='" + TbPass.Password + "'";
+            cmd.CommandText = @"Select * from Сотрудники where Пароль='" + TbPass.Password + "'";
             
             using (var dataReader = cmd.ExecuteReader())
             {
                 success = dataReader.Read();
-                DataTable checkUser = Select(@"Select * from Кассиры where Логин =  '" + TbLogin.Text + "' and Пароль='" + TbPass.Password + "'");
+                DataTable checkUser = Select(@"Select * from Сотрудники where and Пароль='" + TbPass.Password + "'");
                 if (checkUser.Rows.Count > 0)
                 {
                     Class1.kassirName = checkUser.Rows[0][1].ToString();

@@ -12,18 +12,18 @@ namespace ichiraku
     using System;
     using System.Collections.Generic;
     
-    public partial class Группа
+    public partial class ТипОплаты
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Группа()
+        public ТипОплаты()
         {
-            this.Блюда = new HashSet<Блюда>();
+            this.Чек = new HashSet<Чек>();
         }
     
-        public int ИдГруппы { get; set; }
-        public string НаименованиеГруппы { get; set; }
+        public int ИдТипОплаты { get; set; }
+        public string Название { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Блюда> Блюда { get; set; }
+        public virtual ICollection<Чек> Чек { get; set; }
     }
 }

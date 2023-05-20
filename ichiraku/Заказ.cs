@@ -14,12 +14,25 @@ namespace ichiraku
     
     public partial class Заказ
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Заказ()
+        {
+            this.Чек = new HashSet<Чек>();
+        }
+    
         public int ИдЗаказа { get; set; }
-        public Nullable<int> ИдБлюда { get; set; }
-        public Nullable<int> ИдОфицианта { get; set; }
-        public int КоличествоБлюд { get; set; }
+        public int ИдБлюда { get; set; }
+        public int ОбщееКоличество { get; set; }
+        public string ОсобыеПожелания { get; set; }
+        public int ИдСотрудника { get; set; }
+        public int СтатусЗаказа { get; set; }
+        public System.TimeSpan ВремяЗаказа { get; set; }
+        public int НомерЗаказа { get; set; }
     
         public virtual Блюда Блюда { get; set; }
-        public virtual Кассиры Кассиры { get; set; }
+        public virtual Сотрудники Сотрудники { get; set; }
+        public virtual СтатусЗаказа СтатусЗаказа1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Чек> Чек { get; set; }
     }
 }

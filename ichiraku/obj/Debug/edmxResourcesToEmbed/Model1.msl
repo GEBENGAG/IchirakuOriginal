@@ -1,33 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="Хранилище ichirakuModelContainer" CdmEntityContainer="ichirakuEntities2">
-    <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="ichirakuModel.sysdiagrams">
-        <MappingFragment StoreEntitySet="sysdiagrams">
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-          <ScalarProperty Name="version" ColumnName="version" />
-          <ScalarProperty Name="definition" ColumnName="definition" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+  <EntityContainerMapping StorageEntityContainer="Хранилище ichirakuModelContainer" CdmEntityContainer="ichirakuEntities">
     <EntitySetMapping Name="Блюда">
       <EntityTypeMapping TypeName="ichirakuModel.Блюда">
         <MappingFragment StoreEntitySet="Блюда">
           <ScalarProperty Name="ИдБлюда" ColumnName="ИдБлюда" />
           <ScalarProperty Name="Название" ColumnName="Название" />
-          <ScalarProperty Name="Описание" ColumnName="Описание" />
           <ScalarProperty Name="Стоимость" ColumnName="Стоимость" />
-          <ScalarProperty Name="ИдГруппы" ColumnName="ИдГруппы" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Группа">
-      <EntityTypeMapping TypeName="ichirakuModel.Группа">
-        <MappingFragment StoreEntitySet="Группа">
-          <ScalarProperty Name="ИдГруппы" ColumnName="ИдГруппы" />
-          <ScalarProperty Name="НаименованиеГруппы" ColumnName="НаименованиеГруппы" />
+          <ScalarProperty Name="ИдСоставаБлюда" ColumnName="ИдСоставаБлюда" />
+          <ScalarProperty Name="ИдКатегории" ColumnName="ИдКатегории" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -36,45 +17,72 @@
         <MappingFragment StoreEntitySet="Заказ">
           <ScalarProperty Name="ИдЗаказа" ColumnName="ИдЗаказа" />
           <ScalarProperty Name="ИдБлюда" ColumnName="ИдБлюда" />
-          <ScalarProperty Name="ИдОфицианта" ColumnName="ИдОфицианта" />
-          <ScalarProperty Name="КоличествоБлюд" ColumnName="КоличествоБлюд" />
+          <ScalarProperty Name="ОбщееКоличество" ColumnName="ОбщееКоличество" />
+          <ScalarProperty Name="ОсобыеПожелания" ColumnName="ОсобыеПожелания" />
+          <ScalarProperty Name="ИдСотрудника" ColumnName="ИдСотрудника" />
+          <ScalarProperty Name="СтатусЗаказа" ColumnName="СтатусЗаказа" />
+          <ScalarProperty Name="ВремяЗаказа" ColumnName="ВремяЗаказа" />
+          <ScalarProperty Name="НомерЗаказа" ColumnName="НомерЗаказа" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Кассиры">
-      <EntityTypeMapping TypeName="ichirakuModel.Кассиры">
-        <MappingFragment StoreEntitySet="Кассиры">
-          <ScalarProperty Name="ИдОфицианта" ColumnName="ИдОфицианта" />
-          <ScalarProperty Name="Имя" ColumnName="Имя" />
+    <EntitySetMapping Name="Категории">
+      <EntityTypeMapping TypeName="ichirakuModel.Категории">
+        <MappingFragment StoreEntitySet="Категории">
+          <ScalarProperty Name="ИдКатегории" ColumnName="ИдКатегории" />
+          <ScalarProperty Name="НазваниеКатегории" ColumnName="НазваниеКатегории" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="СоставБлюда">
+      <EntityTypeMapping TypeName="ichirakuModel.СоставБлюда">
+        <MappingFragment StoreEntitySet="СоставБлюда">
+          <ScalarProperty Name="ИдСоставаБлюда" ColumnName="ИдСоставаБлюда" />
+          <ScalarProperty Name="Состав" ColumnName="Состав" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Сотрудники">
+      <EntityTypeMapping TypeName="ichirakuModel.Сотрудники">
+        <MappingFragment StoreEntitySet="Сотрудники">
+          <ScalarProperty Name="ИдСотрудника" ColumnName="ИдСотрудника" />
           <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
-          <ScalarProperty Name="Логин" ColumnName="Логин" />
+          <ScalarProperty Name="Имя" ColumnName="Имя" />
+          <ScalarProperty Name="НомерТелефона" ColumnName="НомерТелефона" />
+          <ScalarProperty Name="ДатаРождения" ColumnName="ДатаРождения" />
+          <ScalarProperty Name="Должность" ColumnName="Должность" />
           <ScalarProperty Name="Пароль" ColumnName="Пароль" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище ichirakuModel.sp_alterdiagram" />
-    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище ichirakuModel.sp_creatediagram" />
-    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище ichirakuModel.sp_dropdiagram" />
-    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Хранилище ichirakuModel.sp_helpdiagramdefinition">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="ichirakuModel.sp_helpdiagramdefinition_Result">
-          <ScalarProperty Name="version" ColumnName="version" />
-          <ScalarProperty Name="definition" ColumnName="definition" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Хранилище ichirakuModel.sp_helpdiagrams">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="ichirakuModel.sp_helpdiagrams_Result">
-          <ScalarProperty Name="Database" ColumnName="Database" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Owner" ColumnName="Owner" />
-          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище ichirakuModel.sp_renamediagram" />
-    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище ichirakuModel.sp_upgraddiagrams" />
+    <EntitySetMapping Name="СтатусЗаказа">
+      <EntityTypeMapping TypeName="ichirakuModel.СтатусЗаказа">
+        <MappingFragment StoreEntitySet="СтатусЗаказа">
+          <ScalarProperty Name="ИдСтатусаЗаказа" ColumnName="ИдСтатусаЗаказа" />
+          <ScalarProperty Name="Название" ColumnName="Название" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ТипОплаты">
+      <EntityTypeMapping TypeName="ichirakuModel.ТипОплаты">
+        <MappingFragment StoreEntitySet="ТипОплаты">
+          <ScalarProperty Name="ИдТипОплаты" ColumnName="ИдТипОплаты" />
+          <ScalarProperty Name="Название" ColumnName="Название" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Чек">
+      <EntityTypeMapping TypeName="ichirakuModel.Чек">
+        <MappingFragment StoreEntitySet="Чек">
+          <ScalarProperty Name="ИдЧека" ColumnName="ИдЧека" />
+          <ScalarProperty Name="Дата" ColumnName="Дата" />
+          <ScalarProperty Name="Время" ColumnName="Время" />
+          <ScalarProperty Name="Сумма" ColumnName="Сумма" />
+          <ScalarProperty Name="ИдЗаказа" ColumnName="ИдЗаказа" />
+          <ScalarProperty Name="НомерЗаказа" ColumnName="НомерЗаказа" />
+          <ScalarProperty Name="ТипОплаты" ColumnName="ТипОплаты" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

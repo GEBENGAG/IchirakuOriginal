@@ -1,71 +1,120 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ichirakuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
   <EntityType Name="Блюда">
     <Key>
       <PropertyRef Name="ИдБлюда" />
     </Key>
     <Property Name="ИдБлюда" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Название" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Описание" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Стоимость" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-    <Property Name="ИдГруппы" Type="Int32" />
-    <NavigationProperty Name="Группа" Relationship="Self.FK__Блюда__ИдГруппы__2A4B4B5E" FromRole="Блюда" ToRole="Группа" />
-    <NavigationProperty Name="Заказ" Relationship="Self.FK__Заказ__ИдБлюда__2B3F6F97" FromRole="Блюда" ToRole="Заказ" />
-  </EntityType>
-  <EntityType Name="Группа">
-    <Key>
-      <PropertyRef Name="ИдГруппы" />
-    </Key>
-    <Property Name="ИдГруппы" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="НаименованиеГруппы" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="Блюда" Relationship="Self.FK__Блюда__ИдГруппы__2A4B4B5E" FromRole="Группа" ToRole="Блюда" />
+    <Property Name="Стоимость" Type="Double" Nullable="false" />
+    <Property Name="ИдСоставаБлюда" Type="Int32" Nullable="false" />
+    <Property Name="ИдКатегории" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Категории" Relationship="Self.FK_Блюда_Категории" FromRole="Блюда" ToRole="Категории" />
+    <NavigationProperty Name="СоставБлюда" Relationship="Self.FK_Блюда_СоставБлюда" FromRole="Блюда" ToRole="СоставБлюда" />
+    <NavigationProperty Name="Заказ" Relationship="Self.FK_Заказ_Блюда" FromRole="Блюда" ToRole="Заказ" />
   </EntityType>
   <EntityType Name="Заказ">
     <Key>
       <PropertyRef Name="ИдЗаказа" />
     </Key>
     <Property Name="ИдЗаказа" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ИдБлюда" Type="Int32" />
-    <Property Name="ИдОфицианта" Type="Int32" />
-    <Property Name="КоличествоБлюд" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Блюда" Relationship="Self.FK__Заказ__ИдБлюда__2B3F6F97" FromRole="Заказ" ToRole="Блюда" />
-    <NavigationProperty Name="Кассиры" Relationship="Self.FK__Заказ__ИдОфициан__0EA330E9" FromRole="Заказ" ToRole="Кассиры" />
+    <Property Name="ИдБлюда" Type="Int32" Nullable="false" />
+    <Property Name="ОбщееКоличество" Type="Int32" Nullable="false" />
+    <Property Name="ОсобыеПожелания" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ИдСотрудника" Type="Int32" Nullable="false" />
+    <Property Name="СтатусЗаказа" Type="Int32" Nullable="false" />
+    <Property Name="ВремяЗаказа" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="НомерЗаказа" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Блюда" Relationship="Self.FK_Заказ_Блюда" FromRole="Заказ" ToRole="Блюда" />
+    <NavigationProperty Name="Сотрудники" Relationship="Self.FK_Заказ_Сотрудники" FromRole="Заказ" ToRole="Сотрудники" />
+    <NavigationProperty Name="СтатусЗаказа1" Relationship="Self.FK_Заказ_СтатусЗаказа" FromRole="Заказ" ToRole="СтатусЗаказа" />
+    <NavigationProperty Name="Чек" Relationship="Self.FK_Чек_Заказ" FromRole="Заказ" ToRole="Чек" />
   </EntityType>
-  <EntityType Name="Кассиры">
+  <EntityType Name="Категории">
     <Key>
-      <PropertyRef Name="ИдОфицианта" />
+      <PropertyRef Name="ИдКатегории" />
     </Key>
-    <Property Name="ИдОфицианта" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Имя" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Фамилия" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Логин" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Пароль" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="Заказ" Relationship="Self.FK__Заказ__ИдОфициан__0EA330E9" FromRole="Кассиры" ToRole="Заказ" />
+    <Property Name="ИдКатегории" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="НазваниеКатегории" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Блюда" Relationship="Self.FK_Блюда_Категории" FromRole="Категории" ToRole="Блюда" />
   </EntityType>
-  <Association Name="FK__Блюда__ИдГруппы__2A4B4B5E">
-    <End Role="Группа" Type="Self.Группа" Multiplicity="0..1" />
+  <EntityType Name="СоставБлюда">
+    <Key>
+      <PropertyRef Name="ИдСоставаБлюда" />
+    </Key>
+    <Property Name="ИдСоставаБлюда" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Состав" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Блюда" Relationship="Self.FK_Блюда_СоставБлюда" FromRole="СоставБлюда" ToRole="Блюда" />
+  </EntityType>
+  <EntityType Name="Сотрудники">
+    <Key>
+      <PropertyRef Name="ИдСотрудника" />
+    </Key>
+    <Property Name="ИдСотрудника" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Фамилия" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Имя" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="НомерТелефона" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ДатаРождения" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Должность" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Пароль" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Заказ" Relationship="Self.FK_Заказ_Сотрудники" FromRole="Сотрудники" ToRole="Заказ" />
+  </EntityType>
+  <EntityType Name="СтатусЗаказа">
+    <Key>
+      <PropertyRef Name="ИдСтатусаЗаказа" />
+    </Key>
+    <Property Name="ИдСтатусаЗаказа" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Название" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Заказ" Relationship="Self.FK_Заказ_СтатусЗаказа" FromRole="СтатусЗаказа" ToRole="Заказ" />
+  </EntityType>
+  <EntityType Name="ТипОплаты">
+    <Key>
+      <PropertyRef Name="ИдТипОплаты" />
+    </Key>
+    <Property Name="ИдТипОплаты" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Название" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Чек" Relationship="Self.FK_Чек_ТипОплаты" FromRole="ТипОплаты" ToRole="Чек" />
+  </EntityType>
+  <EntityType Name="Чек">
+    <Key>
+      <PropertyRef Name="ИдЧека" />
+    </Key>
+    <Property Name="ИдЧека" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Дата" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Время" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="Сумма" Type="Double" Nullable="false" />
+    <Property Name="ИдЗаказа" Type="Int32" Nullable="false" />
+    <Property Name="НомерЗаказа" Type="Int32" Nullable="false" />
+    <Property Name="ТипОплаты" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Заказ" Relationship="Self.FK_Чек_Заказ" FromRole="Чек" ToRole="Заказ" />
+    <NavigationProperty Name="ТипОплаты1" Relationship="Self.FK_Чек_ТипОплаты" FromRole="Чек" ToRole="ТипОплаты" />
+  </EntityType>
+  <Association Name="FK_Блюда_Категории">
+    <End Role="Категории" Type="Self.Категории" Multiplicity="1" />
     <End Role="Блюда" Type="Self.Блюда" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Группа">
-        <PropertyRef Name="ИдГруппы" />
+      <Principal Role="Категории">
+        <PropertyRef Name="ИдКатегории" />
       </Principal>
       <Dependent Role="Блюда">
-        <PropertyRef Name="ИдГруппы" />
+        <PropertyRef Name="ИдКатегории" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Заказ__ИдБлюда__2B3F6F97">
-    <End Role="Блюда" Type="Self.Блюда" Multiplicity="0..1" />
+  <Association Name="FK_Блюда_СоставБлюда">
+    <End Role="СоставБлюда" Type="Self.СоставБлюда" Multiplicity="1" />
+    <End Role="Блюда" Type="Self.Блюда" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="СоставБлюда">
+        <PropertyRef Name="ИдСоставаБлюда" />
+      </Principal>
+      <Dependent Role="Блюда">
+        <PropertyRef Name="ИдСоставаБлюда" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Заказ_Блюда">
+    <End Role="Блюда" Type="Self.Блюда" Multiplicity="1" />
     <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Блюда">
@@ -76,76 +125,90 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Заказ__ИдОфициан__0EA330E9">
-    <End Role="Кассиры" Type="Self.Кассиры" Multiplicity="0..1" />
+  <Association Name="FK_Заказ_Сотрудники">
+    <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="1" />
     <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Кассиры">
-        <PropertyRef Name="ИдОфицианта" />
+      <Principal Role="Сотрудники">
+        <PropertyRef Name="ИдСотрудника" />
       </Principal>
       <Dependent Role="Заказ">
-        <PropertyRef Name="ИдОфицианта" />
+        <PropertyRef Name="ИдСотрудника" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="ichirakuEntities2" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+  <Association Name="FK_Заказ_СтатусЗаказа">
+    <End Role="СтатусЗаказа" Type="Self.СтатусЗаказа" Multiplicity="1" />
+    <End Role="Заказ" Type="Self.Заказ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="СтатусЗаказа">
+        <PropertyRef Name="ИдСтатусаЗаказа" />
+      </Principal>
+      <Dependent Role="Заказ">
+        <PropertyRef Name="СтатусЗаказа" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Чек_Заказ">
+    <End Role="Заказ" Type="Self.Заказ" Multiplicity="1" />
+    <End Role="Чек" Type="Self.Чек" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Заказ">
+        <PropertyRef Name="ИдЗаказа" />
+      </Principal>
+      <Dependent Role="Чек">
+        <PropertyRef Name="ИдЗаказа" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Чек_ТипОплаты">
+    <End Role="ТипОплаты" Type="Self.ТипОплаты" Multiplicity="1" />
+    <End Role="Чек" Type="Self.Чек" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ТипОплаты">
+        <PropertyRef Name="ИдТипОплаты" />
+      </Principal>
+      <Dependent Role="Чек">
+        <PropertyRef Name="ТипОплаты" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ichirakuEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Блюда" EntityType="Self.Блюда" />
-    <EntitySet Name="Группа" EntityType="Self.Группа" />
     <EntitySet Name="Заказ" EntityType="Self.Заказ" />
-    <EntitySet Name="Кассиры" EntityType="Self.Кассиры" />
-    <AssociationSet Name="FK__Блюда__ИдГруппы__2A4B4B5E" Association="Self.FK__Блюда__ИдГруппы__2A4B4B5E">
-      <End Role="Группа" EntitySet="Группа" />
+    <EntitySet Name="Категории" EntityType="Self.Категории" />
+    <EntitySet Name="СоставБлюда" EntityType="Self.СоставБлюда" />
+    <EntitySet Name="Сотрудники" EntityType="Self.Сотрудники" />
+    <EntitySet Name="СтатусЗаказа" EntityType="Self.СтатусЗаказа" />
+    <EntitySet Name="ТипОплаты" EntityType="Self.ТипОплаты" />
+    <EntitySet Name="Чек" EntityType="Self.Чек" />
+    <AssociationSet Name="FK_Блюда_Категории" Association="Self.FK_Блюда_Категории">
+      <End Role="Категории" EntitySet="Категории" />
       <End Role="Блюда" EntitySet="Блюда" />
     </AssociationSet>
-    <AssociationSet Name="FK__Заказ__ИдБлюда__2B3F6F97" Association="Self.FK__Заказ__ИдБлюда__2B3F6F97">
+    <AssociationSet Name="FK_Блюда_СоставБлюда" Association="Self.FK_Блюда_СоставБлюда">
+      <End Role="СоставБлюда" EntitySet="СоставБлюда" />
+      <End Role="Блюда" EntitySet="Блюда" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Заказ_Блюда" Association="Self.FK_Заказ_Блюда">
       <End Role="Блюда" EntitySet="Блюда" />
       <End Role="Заказ" EntitySet="Заказ" />
     </AssociationSet>
-    <AssociationSet Name="FK__Заказ__ИдОфициан__0EA330E9" Association="Self.FK__Заказ__ИдОфициан__0EA330E9">
-      <End Role="Кассиры" EntitySet="Кассиры" />
+    <AssociationSet Name="FK_Заказ_Сотрудники" Association="Self.FK_Заказ_Сотрудники">
+      <End Role="Сотрудники" EntitySet="Сотрудники" />
       <End Role="Заказ" EntitySet="Заказ" />
     </AssociationSet>
-    <FunctionImport Name="sp_alterdiagram">
-      <Parameter Name="diagramname" Mode="In" Type="String" />
-      <Parameter Name="owner_id" Mode="In" Type="Int32" />
-      <Parameter Name="version" Mode="In" Type="Int32" />
-      <Parameter Name="definition" Mode="In" Type="Binary" />
-    </FunctionImport>
-    <FunctionImport Name="sp_creatediagram">
-      <Parameter Name="diagramname" Mode="In" Type="String" />
-      <Parameter Name="owner_id" Mode="In" Type="Int32" />
-      <Parameter Name="version" Mode="In" Type="Int32" />
-      <Parameter Name="definition" Mode="In" Type="Binary" />
-    </FunctionImport>
-    <FunctionImport Name="sp_dropdiagram">
-      <Parameter Name="diagramname" Mode="In" Type="String" />
-      <Parameter Name="owner_id" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ichirakuModel.sp_helpdiagramdefinition_Result)">
-      <Parameter Name="diagramname" Mode="In" Type="String" />
-      <Parameter Name="owner_id" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ichirakuModel.sp_helpdiagrams_Result)">
-      <Parameter Name="diagramname" Mode="In" Type="String" />
-      <Parameter Name="owner_id" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="sp_renamediagram">
-      <Parameter Name="diagramname" Mode="In" Type="String" />
-      <Parameter Name="owner_id" Mode="In" Type="Int32" />
-      <Parameter Name="new_diagramname" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="sp_upgraddiagrams" />
+    <AssociationSet Name="FK_Заказ_СтатусЗаказа" Association="Self.FK_Заказ_СтатусЗаказа">
+      <End Role="СтатусЗаказа" EntitySet="СтатусЗаказа" />
+      <End Role="Заказ" EntitySet="Заказ" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Чек_Заказ" Association="Self.FK_Чек_Заказ">
+      <End Role="Заказ" EntitySet="Заказ" />
+      <End Role="Чек" EntitySet="Чек" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Чек_ТипОплаты" Association="Self.FK_Чек_ТипОплаты">
+      <End Role="ТипОплаты" EntitySet="ТипОплаты" />
+      <End Role="Чек" EntitySet="Чек" />
+    </AssociationSet>
   </EntityContainer>
-  <ComplexType Name="sp_helpdiagramdefinition_Result">
-    <Property Type="Int32" Name="version" Nullable="true" />
-    <Property Type="Binary" Name="definition" Nullable="true" />
-  </ComplexType>
-  <ComplexType Name="sp_helpdiagrams_Result">
-    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-    <Property Type="Int32" Name="ID" Nullable="false" />
-    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-    <Property Type="Int32" Name="OwnerID" Nullable="false" />
-  </ComplexType>
 </Schema>

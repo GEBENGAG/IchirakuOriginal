@@ -33,7 +33,7 @@ namespace ichiraku
 
         #endregion
 
-        static public ichirakuEntities2 context = new ichirakuEntities2();
+        static public ichirakuEntities context = new ichirakuEntities();
 
         static public SqlConnection cn1;
         static public void DataBaseInitialize()

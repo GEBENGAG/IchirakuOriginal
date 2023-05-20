@@ -22,11 +22,12 @@ namespace ichiraku
     
         public int ИдБлюда { get; set; }
         public string Название { get; set; }
-        public string Описание { get; set; }
-        public decimal Стоимость { get; set; }
-        public Nullable<int> ИдГруппы { get; set; }
+        public double Стоимость { get; set; }
+        public int ИдСоставаБлюда { get; set; }
+        public int ИдКатегории { get; set; }
     
-        public virtual Группа Группа { get; set; }
+        public virtual Категории Категории { get; set; }
+        public virtual СоставБлюда СоставБлюда { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Заказ> Заказ { get; set; }
     }
